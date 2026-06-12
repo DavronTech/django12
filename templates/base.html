@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="relative overflow-hidden bg-white p-16 rounded-3xl border border-gray-200 shadow-xl shadow-gray-100">
+    <div class="max-w-2xl mx-auto text-center">
+        <h1 class="text-5xl font-extrabold tracking-tight text-gray-900 mb-6">
+            Raqamli dunyoga <span class="text-indigo-600">xush kelibsiz</span>
+        </h1>
+        <p class="text-xl text-gray-500 mb-10">
+            Siz tizimga kirdingiz. Endi o'z profilingizni boshqarishingiz va yangi imkoniyatlardan foydalanishingiz mumkin.
+        </p>
+        
+        {% if not user.is_authenticated %}
+        <div class="flex gap-4 justify-center">
+            <a href="{% url 'login' %}" class="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 transition">Kirish</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

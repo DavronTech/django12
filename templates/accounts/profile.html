@@ -1,9 +1,48 @@
-<h1>User Profile</h1>
+<div class="min-h-screen bg-gray-50 py-10 px-4">
+    <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-gray-900 p-8 text-white">
+            <h1 class="text-2xl font-bold">Foydalanuvchi profili</h1>
+            <p class="text-gray-400 mt-1">Shaxsiy ma'lumotlaringizni boshqarish</p>
+        </div>
 
-<p><strong>Username:</strong> {{ user.username }}</p>
-<p><strong>Email:</strong> {{ user.email }}</p>
-<p><strong>First name:</strong> {{ user.first_name }}</p>
-<p><strong>Last name:</strong> {{ user.last_name }}</p>
-<p><strong>Phone number:</strong> {{ user.phone_number }}</p>
+        <!-- Profil ma'lumotlari -->
+        <div class="p-8 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-1">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Foydalanuvchi nomi</p>
+                    <p class="text-lg font-medium text-gray-800">{{ user.username }}</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Email</p>
+                    <p class="text-lg font-medium text-gray-800">{{ user.email }}</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Ismi</p>
+                    <p class="text-lg font-medium text-gray-800">{{ user.first_name }}</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Familiyasi</p>
+                    <p class="text-lg font-medium text-gray-800">{{ user.last_name }}</p>
+                </div>
+                <div class="space-y-1 md:col-span-2">
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Telefon raqam</p>
+                    <p class="text-lg font-medium text-gray-800">{{ user.phone_number }}</p>
+                </div>
+            </div>
 
-<a href="{% url 'logout' %}">Logout</a>
+            <!-- Tugmalar qismi -->
+            <div class="pt-6 border-t border-gray-100 flex items-center gap-4">
+                <a href="{% url 'update' %}" 
+                   class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-300">
+                    Tahrirlash
+                </a>
+                <a href="{% url 'logout' %}" 
+                   class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-xl transition duration-300">
+                    Chiqish
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

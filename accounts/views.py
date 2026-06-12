@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
 from django.views import View
 from .models import CustomUser
-from .forms import UserForm,LoginForm
+from .forms import UserForm,LoginForm,UserUpdateForm
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ValidationError
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .utils import send_test_email,send_email_login
 
 
 
@@ -21,6 +23,8 @@ class SinUp(View):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
+            send_test_email(user.email)
+
 
             return redirect('login')
 
@@ -60,6 +64,7 @@ class LoginView(View):
             
 
             login(request, user )
+            send_email_login(user.email)
 
             return redirect( 'home')
         
@@ -74,3 +79,23 @@ class ProfilView(View):
 
     def get(self , request):
         return render(request , 'accounts/profile.html' )
+
+
+class UserUpdateView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        form = UserUpdateForm(instance=request.user)
+        return render(request, 'accounts/update.html', {'form': form})
+
+    def post(self, request):
+        form = UserUpdateForm(
+            request.POST,
+            request.FILES,
+            instance=request.user
+        )
+
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+        return render(request, 'accounts/update.html', {'form': form})

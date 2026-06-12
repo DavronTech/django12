@@ -1,7 +1,45 @@
-<form method="post">
-    {% csrf_token %}
+<div class="min-h-screen flex items-center justify-center bg-gray-100 p-6">
+    <!-- Asosiy karta -->
+    <div class="w-full max-w-md bg-white p-10 rounded-3xl shadow-2xl border border-gray-100">
+        
+        <!-- Sarlavha qismi -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-blue-600 mb-4">
+                <!-- Bu yerga ikonka qo'yishingiz mumkin, masalan: SVG user icon -->
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+            </div>
+            <h2 class="text-3xl font-extrabold text-gray-900">Tizimga kirish</h2>
+            <p class="text-gray-500 mt-2">Akkauntingizga kirish uchun ma'lumotlarni kiriting</p>
+        </div>
 
-    {{ form.as_p }}
+        <!-- Forma -->
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            {% for field in form %}
+                <div class="group">
+                    <label class="block text-sm font-medium text-gray-700 mb-2 transition-colors group-focus-within:text-blue-600">
+                        {{ field.label }}
+                    </label>
+                    <div class="relative">
+                        {{ field }}
+                    </div>
+                    
+                    {% if field.errors %}
+                        <p class="text-sm text-red-500 mt-2 animate-pulse">{{ field.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
 
-    <button type="submit">Login</button>
-</form>
+            <!-- Kirish tugmasi -->
+            <button type="submit" 
+                    class="w-full group relative bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-blue-200 active:scale-95">
+                <span class="relative">Kirish</span><br>
+            </button>
+        </form>
+
+        <!-- Pastki qism -->
+        
+    </div>
+</div>
